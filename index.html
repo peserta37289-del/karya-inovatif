@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Misi Pasar Batik — Petualangan Bilangan sampai 100.000. Inovasi Media Pembelajaran Interaktif Matematika Kelas V SD untuk Seminar Pendidikan Profesi Guru (PPG). Penyusun: Nadhia Pristy (NIM: A951260066).">
+  <meta name="keywords" content="Misi Pasar Batik, Matematika Kelas V SD, Bilangan Cacah sampai 100000, PPG, Pasar Klewer, TaRL, PBL, UbD, CRT">
+  <meta name="author" content="Nadhia Pristy">
+  <title>Misi Pasar Batik — Petualangan Bilangan sampai 100.000 | Inovasi Pembelajaran PPG</title>
+  
+  <!-- CSS Design System -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Favicon SVG Data URI -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23b91c1c'/><circle cx='50' cy='50' r='36' fill='%23f59e0b'/><path d='M50 15 L60 40 L85 50 L60 60 L50 85 L40 60 L15 50 L40 40 Z' fill='%230a1128'/></svg>">
+</head>
+<body>
+
+  <!-- Confetti Canvas Overlay for Celebrations -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ========================================================
+       TOP NAVIGATION BAR
+       ======================================================== -->
+  <header class="top-header">
+    <div class="header-inner">
+      <!-- Brand & Mascot Logo -->
+      <div class="brand-wrapper" id="nav-brand-home" title="Kembali ke Beranda">
+        <div class="brand-icon-box">
+          <span>🏪</span>
+        </div>
+        <div class="brand-text">
+          <h1>Misi Pasar Batik</h1>
+          <div class="sub">
+            <span>✨</span> Petualangan Bilangan s.d. 100.000
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav>
+        <ul class="nav-menu" id="main-nav-menu">
+          <li class="nav-item">
+            <button class="active" data-page="page-beranda" id="nav-btn-beranda">
+              <span>🏠</span> Beranda
+            </button>
+          </li>
+          <li class="nav-item">
+            <button data-page="page-materi" id="nav-btn-materi">
+              <span>📚</span> Materi (5 Kios)
+            </button>
+          </li>
+          <li class="nav-item">
+            <button data-page="page-games" id="nav-btn-games">
+              <span>🎮</span> Games
+            </button>
+          </li>
+          <li class="nav-item">
+            <button data-page="page-lkpd" id="nav-btn-lkpd">
+              <span>📝</span> LKPD Kelompok
+            </button>
+          </li>
+          <li class="nav-item">
+            <button data-page="page-evaluasi" id="nav-btn-evaluasi">
+              <span>📊</span> Evaluasi
+            </button>
+          </li>
+          <li class="nav-item">
+            <button data-page="page-lencana" id="nav-btn-lencana">
+              <span>🎖️</span> Lencana Skor
+            </button>
+          </li>
+          <li class="nav-item">
+            <button data-page="page-profil" id="nav-btn-profil">
+              <span>👤</span> Profil Diri
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="btn-guru" data-page="page-guru" id="nav-btn-guru">
+              <span>🔒</span> Panel Guru
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- User Actions & Student Selector -->
+      <div class="header-actions">
+        <!-- Sound Mute/Unmute Toggle -->
+        <button class="audio-toggle-btn" id="audio-toggle-btn" title="Aktifkan / Matikan Suara">
+          <span id="audio-icon">🔊</span>
+        </button>
+
+        <!-- Active Student Pill & Dropdown -->
+        <div class="student-selector-box">
+          <div class="student-pill" id="student-pill-btn" title="Klik untuk memilih atau mengganti profil murid">
+            <div class="avatar-badge" id="header-avatar-badge">🦁</div>
+            <div class="student-pill-info">
+              <span class="student-pill-name" id="header-student-name">Pilih Murid...</span>
+              <span class="student-pill-group" id="header-student-group">
+                <span class="group-tag Singa" id="header-group-tag">Singa</span>
+                <span id="header-points-tag">⭐ 0</span>
+              </span>
+            </div>
+            <span style="font-size:0.75rem; color:#fde047;">▼</span>
+          </div>
+
+          <!-- Student Dropdown Panel -->
+          <div class="student-dropdown-menu" id="student-dropdown-menu">
+            <div class="dropdown-header">
+              <h4>👥 Pilih Profil Murid</h4>
+              <button class="modal-close-btn" id="close-dropdown-btn" style="font-size:1.1rem;">✕</button>
+            </div>
+            <div class="dropdown-search">
+              <input type="text" id="student-search-input" placeholder="Cari nama murid..." autocomplete="off">
+            </div>
+            <div class="dropdown-list" id="dropdown-students-list">
+              <!-- Dynamically populated 20 students -->
+            </div>
+            <div class="dropdown-footer">
+              <span>💡 Guru dapat mengelola murid di Panel Guru</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation Hamburger -->
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       MAIN APP CONTENT (PAGE SECTIONS)
+       ======================================================== -->
+  <main class="main-content">
+
+    <!-- --------------------------------------------------------
+         1. HALAMAN BERANDA (HOME)
+         -------------------------------------------------------- -->
+    <section class="page-section active" id="page-beranda">
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="section-tag" style="background:rgba(255,255,255,0.15); color:#fde047;">
+              <span>🏛️</span> Konteks Budaya Pasar Klewer Surakarta
+            </div>
+            <h1>Misi Pasar Batik! <br><span class="gold">Petualangan Bilangan sampai 100.000</span></h1>
+            <p class="subtitle">
+              Yuk, bantu para pedagang batik di Pasar Klewer membaca harga kain, menyusun lambang bilangan, membandingkan nota belanja, dan menyelesaikan tantangan seru bersama teman kelompokmu!
+            </p>
+            <div class="hero-action-buttons">
+              <button class="btn btn-gold" id="hero-btn-start">
+                <span>🚀</span> Mulai Petualangan
+              </button>
+              <button class="btn btn-primary" id="hero-btn-kiosk">
+                <span>🏪</span> Jelajahi Kios
+              </button>
+              <button class="btn btn-secondary" id="hero-btn-games">
+                <span>🎮</span> Main Games
+              </button>
+              <button class="btn btn-outline" id="hero-btn-lkpd" style="border-color:rgba(255,255,255,0.4); color:#fff;">
+                <span>📝</span> Kerjakan LKPD
+              </button>
+              <button class="btn btn-outline" id="hero-btn-eval" style="border-color:var(--gold-400); color:var(--gold-400);">
+                <span>📊</span> Mulai Evaluasi
+              </button>
+            </div>
+          </div>
+
+          <!-- Mascot & Tip Card -->
+          <div class="hero-mascot-card">
+            <div class="mascot-avatar-container">
+              <div class="batik-buddy-avatar" id="mascot-avatar-icon">
+                🎭
+              </div>
+            </div>
+            <div class="mascot-bubble" id="mascot-home-speech">
+              "Halo Sahabat Pintar! Namaku <strong>Batik Buddy</strong>. Pilih namamu di pojok kanan atas, lalu yuk kita mulai keliling 5 kios pasar batik!"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Progress Strip -->
+      <div class="progress-summary-strip">
+        <div class="stat-card">
+          <div class="stat-icon kiosk">🏪</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-kiosks-completed">0 / 5</div>
+            <div class="stat-label">Kios Terselesaikan</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon score">⭐</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-score">0 Poin</div>
+            <div class="stat-label">Total Skor Games</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon badge">🎖️</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-badges-earned">0 / 7</div>
+            <div class="stat-label">Lencana Prestasi</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon group" id="stat-group-icon">👥</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-active-group-name">Kelompok -</div>
+            <div class="stat-label" id="stat-active-student-label">Murid Belum Dipilih</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Step Simple Guide -->
+      <div class="card" style="margin-bottom: 2.5rem; background:#ffffff;">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <div class="section-tag">💡 Petunjuk Singkat Penggunaan</div>
+          <h2>Cara Mudah Berpetualang di Misi Pasar Batik</h2>
+          <p>Ikuti 3 langkah menyenangkan ini agar belajarmu bermakna dan sukses mendapatkan semua lencana!</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.5rem;">
+          <div style="text-align:center; padding:1.25rem; background:var(--cream-50); border-radius:var(--radius-lg); border:1px solid var(--cream-300);">
+            <div style="font-size:2.5rem; margin-bottom:0.75rem;">1️⃣</div>
+            <h3 style="font-size:1.1rem; margin-bottom:0.5rem; color:var(--navy-900);">Pilih Profil Diri</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary);">
+              Klik nama murid di pojok kanan atas. Sistem otomatis menghubungkan kelompokmu (Singa, Banteng, atau Kelinci) dan menyimpan setiap capaianmu.
+            </p>
+          </div>
+          <div style="text-align:center; padding:1.25rem; background:var(--cream-50); border-radius:var(--radius-lg); border:1px solid var(--cream-300);">
+            <div style="font-size:2.5rem; margin-bottom:0.75rem;">2️⃣</div>
+            <h3 style="font-size:1.1rem; margin-bottom:0.5rem; color:var(--navy-900);">Jelajahi 5 Kios & Main Games</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary);">
+              Pelajari video, membaca nilai tempat, menulis bilangan, membandingkan harga kain, dan simulasi belanja. Kumpulkan poin di 4 games edukatif!
+            </p>
+          </div>
+          <div style="text-align:center; padding:1.25rem; background:var(--cream-50); border-radius:var(--radius-lg); border:1px solid var(--cream-300);">
+            <div style="font-size:2.5rem; margin-bottom:0.75rem;">3️⃣</div>
+            <h3 style="font-size:1.1rem; margin-bottom:0.5rem; color:var(--navy-900);">Kerjakan LKPD & Evaluasi</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary);">
+              Diskusikan 5 misi LKPD kontekstual bersama anggota kelompokmu, lalu uji pemahaman mandiri pada Evaluasi Berbasis Nilai Tempat!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Authentic Pasar Klewer Batik Showcase -->
+      <div class="card" style="margin-bottom: 2.5rem;">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <div class="section-tag">🧵 Eksplorasi Kain Batik Pasar Klewer</div>
+          <h2>Mengenal 5 Motif Batik & Harganya</h2>
+          <p>Setiap kain batik Nusantara di Pasar Klewer memiliki keunikan motif, makna filosofis, dan nilai harga yang bervariasi.</p>
+        </div>
+        <div class="batik-showcase-grid" id="home-batik-grid">
+          <!-- Populated from data.js -->
+        </div>
+      </div>
+
+      <!-- Curriculum & PPG Alignment Banner -->
+      <div class="curriculum-banner">
+        <div class="curriculum-details">
+          <div class="section-tag" style="background:var(--gold-100); color:var(--gold-600);">
+            🎓 Media Inovasi Pembelajaran PPG
+          </div>
+          <h3>Misi Pasar Batik — Petualangan Bilangan sampai 100.000</h3>
+          <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:0.5rem;">
+            Disusun untuk Seminar Pendidikan Profesi Guru (PPG) Sekolah Dasar. Mengintegrasikan pembelajaran matematika bermakna dengan kebudayaan lokal Surakarta.
+          </p>
+          <div class="curriculum-tags">
+            <span class="tag-badge highlight">Penyusun: Nadhia Pristy (NIM: A951260066)</span>
+            <span class="tag-badge">Fase C / Kelas V SD</span>
+            <span class="tag-badge">Alokasi: 2 × 35 Menit</span>
+            <span class="tag-badge">Model: Problem Based Learning (PBL)</span>
+            <span class="tag-badge">Teaching at the Right Level (TaRL)</span>
+            <span class="tag-badge">Deep Learning</span>
+            <span class="tag-badge">Understanding by Design (UbD)</span>
+            <span class="tag-badge">Desain Universal untuk Pembelajaran (DUP)</span>
+            <span class="tag-badge">Culturally Responsive Teaching (CRT)</span>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <button class="btn btn-outline" id="btn-open-pedagogy-modal" style="width:100%;">
+            <span>📖</span> Baca Rincian Kerangka Pedagogi
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         2. HALAMAN MATERI (5 KIOS PASAR BATIK)
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-materi">
+      <div class="section-header">
+        <div class="section-tag">🏪 Peta Pasar Tradisional Klewer</div>
+        <h2>Jelajahi 5 Kios Pasar Batik</h2>
+        <p>
+          Klik setiap kios untuk mempelajari konsep bilangan cacah sampai 100.000 mulai dari menonton video interaktif, membaca nilai tempat, menulis lambang bilangan, mengurutkan harga, hingga simulasi belanja!
+        </p>
+      </div>
+
+      <!-- Stalls Map Grid -->
+      <div class="market-map-container">
+        <div class="kiosks-grid" id="kiosks-stall-list">
+          <!-- Dynamic 5 Kiosk Cards -->
+        </div>
+      </div>
+
+      <!-- KIOSK 1 DETAIL: Bioskop Mini Bilangan -->
+      <div class="kiosk-view-panel" id="kiosk-panel-1">
+        <div class="kiosk-nav-bar">
+          <div>
+            <span class="section-tag" style="background:var(--red-100); color:var(--red-600);">Kios 1 dari 5</span>
+            <h3 style="font-size:1.6rem; color:var(--navy-900);">🎬 Bioskop Mini Bilangan</h3>
+            <p style="color:var(--text-secondary); margin:0;">"Yuk, Kenali Bilangan sampai 100.000!"</p>
+          </div>
+          <button class="btn btn-outline btn-sm btn-back-to-kiosks">← Kembali ke Peta Kios</button>
+        </div>
+
+        <div class="card" style="background:var(--cream-50); margin-bottom:1.5rem;">
+          <p><strong>Petunjuk Menonton:</strong> Tonton video berikut dengan saksama. Simak penjelasan tentang bilangan cacah dan nilai tempatnya. Setelah menonton, centang tombol konfirmasi dan jawab 3 kuis pemahaman di bawah!</p>
+        </div>
+
+        <!-- YouTube Video Player -->
+        <div class="video-responsive-wrapper">
+          <iframe 
+            id="kiosk-video-iframe" 
+            src="https://www.youtube.com/embed/PTk8rXpc-LQ" 
+            title="Video Pembelajaran Bilangan Cacah sampai 100.000" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+          <a href="https://youtu.be/PTk8rXpc-LQ?feature=shared" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+            <span>📺</span> Buka Video di YouTube (Alternatif jika tidak bisa diputar)
+          </a>
+          <button class="btn btn-secondary btn-sm" id="btn-toggle-video-completed">
+            <span id="video-check-icon">⬜</span> Tandai Sudah Selesai Menonton
+          </button>
+        </div>
+
+        <!-- Comprehension Check Questions -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.2rem; margin-bottom:1rem; color:var(--navy-900);">📝 Kuis Pemahaman Setelah Menonton Video</h4>
+          <div id="kiosk1-quiz-container">
+            <!-- Populated from data.js questions -->
+          </div>
+          <div style="margin-top:1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <button class="btn btn-primary" id="btn-check-kiosk1-quiz">
+              <span>✔️</span> Periksa Jawaban Kuis
+            </button>
+            <button class="btn btn-gold" id="btn-next-to-kiosk2">
+              <span>➡️</span> Lanjut ke Kios 2 (Membaca Bilangan)
+            </button>
+          </div>
+          <div id="kiosk1-feedback-msg" style="margin-top:1rem; font-weight:700;"></div>
+        </div>
+      </div>
+
+      <!-- KIOSK 2 DETAIL: Kios Membaca Bilangan -->
+      <div class="kiosk-view-panel" id="kiosk-panel-2">
+        <div class="kiosk-nav-bar">
+          <div>
+            <span class="section-tag" style="background:var(--red-100); color:var(--red-600);">Kios 2 dari 5</span>
+            <h3 style="font-size:1.6rem; color:var(--navy-900);">📖 Kios Membaca Bilangan</h3>
+            <p style="color:var(--text-secondary); margin:0;">Membaca lambang bilangan harga batik & memahami 5 nilai tempat</p>
+          </div>
+          <button class="btn btn-outline btn-sm btn-back-to-kiosks">← Kembali ke Peta Kios</button>
+        </div>
+
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:0.5rem;">💡 Konsep Nilai Tempat Bilangan Cacah sampai 100.000</h4>
+          <p style="font-size:0.92rem; color:var(--text-secondary);">
+            Bilangan lima angka memiliki 5 tingkatan nilai tempat dari kiri ke kanan: <strong>Puluh Ribuan</strong>, <strong>Ribuan</strong>, <strong>Ratusan</strong>, <strong>Puluhan</strong>, dan <strong>Satuan</strong>. Tanda titik (.) digunakan untuk memisahkan setiap 3 angka dari kanan.
+          </p>
+
+          <!-- Interactive Place Value Demo -->
+          <div class="place-value-board">
+            <div class="place-value-col">
+              <div class="label">Puluh Ribuan</div>
+              <div class="digit" id="pv-digit-5">6</div>
+              <div class="sub-value">60.000</div>
+            </div>
+            <div class="place-value-col">
+              <div class="label">Ribuan</div>
+              <div class="digit" id="pv-digit-4">5</div>
+              <div class="sub-value">5.000</div>
+            </div>
+            <div class="place-value-col">
+              <div class="label">Ratusan</div>
+              <div class="digit" id="pv-digit-3">5</div>
+              <div class="sub-value">500</div>
+            </div>
+            <div class="place-value-col">
+              <div class="label">Puluhan</div>
+              <div class="digit" id="pv-digit-2">0</div>
+              <div class="sub-value">0</div>
+            </div>
+            <div class="place-value-col">
+              <div class="label">Satuan</div>
+              <div class="digit" id="pv-digit-1">0</div>
+              <div class="sub-value">0</div>
+            </div>
+          </div>
+          <p style="text-align:center; font-weight:700; color:var(--navy-800);">
+            65.500 dibaca: <span style="color:var(--red-600);">"Enam puluh lima ribu lima ratus"</span>
+          </p>
+        </div>
+
+        <!-- Matching Activity: Match Batik Price with Words -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:0.5rem;">🎯 Aktivitas: Pasangkan Label Harga dengan Cara Membacanya</h4>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1rem;">
+            Klik kartu harga di sebelah kiri, lalu klik kartu nama bilangan yang cocok di sebelah kanan!
+          </p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;" id="kiosk2-matching-container">
+            <div id="kiosk2-col-left" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+            <div id="kiosk2-col-right" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+          </div>
+          <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center;">
+            <div id="kiosk2-match-feedback" style="font-weight:700;"></div>
+            <button class="btn btn-gold" id="btn-next-to-kiosk3">
+              <span>➡️</span> Lanjut ke Kios 3 (Menulis Bilangan)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KIOSK 3 DETAIL: Kios Menulis Bilangan -->
+      <div class="kiosk-view-panel" id="kiosk-panel-3">
+        <div class="kiosk-nav-bar">
+          <div>
+            <span class="section-tag" style="background:var(--red-100); color:var(--red-600);">Kios 3 dari 5</span>
+            <h3 style="font-size:1.6rem; color:var(--navy-900);">✍️ Kios Menulis Bilangan</h3>
+            <p style="color:var(--text-secondary); margin:0;">Mengubah kata menjadi lambang bilangan angka & sebaliknya</p>
+          </div>
+          <button class="btn btn-outline btn-sm btn-back-to-kiosks">← Kembali ke Peta Kios</button>
+        </div>
+
+        <!-- Interactive Place Value Synthesizer -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:0.5rem;">🧮 Laboratorium Interaktif Nilai Tempat</h4>
+          <p style="font-size:0.88rem; color:var(--text-secondary);">
+            Ketik atau ubah angka pada masing-masing kotak di bawah untuk melihat bagaimana bilangan dan nama terbilangnya otomatis tersusun!
+          </p>
+          <div class="place-value-board">
+            <div class="place-value-col">
+              <div class="label">Puluh Ribuan</div>
+              <input type="number" min="0" max="9" value="4" class="pv-input" id="pv-in-5" style="width:100%; text-align:center; font-size:1.8rem; font-weight:800; color:var(--red-600); border:none; outline:none;">
+            </div>
+            <div class="place-value-col">
+              <div class="label">Ribuan</div>
+              <input type="number" min="0" max="9" value="2" class="pv-input" id="pv-in-4" style="width:100%; text-align:center; font-size:1.8rem; font-weight:800; color:var(--red-600); border:none; outline:none;">
+            </div>
+            <div class="place-value-col">
+              <div class="label">Ratusan</div>
+              <input type="number" min="0" max="9" value="3" class="pv-input" id="pv-in-3" style="width:100%; text-align:center; font-size:1.8rem; font-weight:800; color:var(--red-600); border:none; outline:none;">
+            </div>
+            <div class="place-value-col">
+              <div class="label">Puluhan</div>
+              <input type="number" min="0" max="9" value="5" class="pv-input" id="pv-in-2" style="width:100%; text-align:center; font-size:1.8rem; font-weight:800; color:var(--red-600); border:none; outline:none;">
+            </div>
+            <div class="place-value-col">
+              <div class="label">Satuan</div>
+              <input type="number" min="0" max="9" value="0" class="pv-input" id="pv-in-1" style="width:100%; text-align:center; font-size:1.8rem; font-weight:800; color:var(--red-600); border:none; outline:none;">
+            </div>
+          </div>
+          <div style="background:var(--cream-100); padding:1rem; border-radius:var(--radius-md); text-align:center;">
+            <div style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Lambang Bilangan Terbentuk:</div>
+            <div style="font-family:var(--font-mono); font-size:1.8rem; font-weight:800; color:var(--navy-900);" id="pv-synthesized-num">42.350</div>
+            <div style="font-size:1rem; font-weight:700; color:var(--red-600); margin-top:0.3rem;" id="pv-synthesized-words">"Empat puluh dua ribu tiga ratus lima puluh"</div>
+          </div>
+        </div>
+
+        <!-- Writing Exercises -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:1rem;">📝 Latihan Menuliskan Lambang Bilangan</h4>
+          <div id="kiosk3-practice-container">
+            <!-- Populated from data.js practice items -->
+          </div>
+          <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <button class="btn btn-primary" id="btn-check-kiosk3">
+              <span>✔️</span> Periksa Semua Jawaban
+            </button>
+            <button class="btn btn-gold" id="btn-next-to-kiosk4">
+              <span>➡️</span> Lanjut ke Kios 4 (Mengurutkan Harga)
+            </button>
+          </div>
+          <div id="kiosk3-feedback-msg" style="margin-top:1rem; font-weight:700;"></div>
+        </div>
+      </div>
+
+      <!-- KIOSK 4 DETAIL: Kios Mengurutkan Harga -->
+      <div class="kiosk-view-panel" id="kiosk-panel-4">
+        <div class="kiosk-nav-bar">
+          <div>
+            <span class="section-tag" style="background:var(--red-100); color:var(--red-600);">Kios 4 dari 5</span>
+            <h3 style="font-size:1.6rem; color:var(--navy-900);">⚖️ Kios Mengurutkan Harga</h3>
+            <p style="color:var(--text-secondary); margin:0;">Membandingkan dengan tanda (&gt;, &lt;, =) dan mengurutkan harga 5 kain batik</p>
+          </div>
+          <button class="btn btn-outline btn-sm btn-back-to-kiosks">← Kembali ke Peta Kios</button>
+        </div>
+
+        <!-- Part A: Comparing 2 Prices -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:0.5rem;">Bagian A: Membandingkan Dua Harga Batik</h4>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1rem;">
+            Pilih tanda <strong>&gt;</strong> (lebih besar/mahal), <strong>&lt;</strong> (lebih kecil/murah), atau <strong>=</strong> (sama dengan)!
+          </p>
+          <div id="kiosk4-comparisons-list" style="display:flex; flex-direction:column; gap:1rem;">
+            <!-- Populated from data.js comparisons -->
+          </div>
+        </div>
+
+        <!-- Part B: Sorting 5 Batik Prices -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:0.5rem;">Bagian B: Susun Harga 5 Kain Batik</h4>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1rem;">
+            Gunakan tombol panah <strong>▲ Naik</strong> dan <strong>▼ Turun</strong> (atau seret kartu) untuk mengurutkan harga dari <strong>TERMURAH ke TERMAHAL</strong>!
+          </p>
+
+          <div class="sortable-cards-list" id="kiosk4-sortable-list">
+            <!-- Dynamic 5 sorting items -->
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-top:1.25rem;">
+            <button class="btn btn-primary" id="btn-check-kiosk4-sort">
+              <span>✔️</span> Periksa Urutan Harga
+            </button>
+            <button class="btn btn-gold" id="btn-next-to-kiosk5">
+              <span>➡️</span> Lanjut ke Kios 5 (Belanja & Uang)
+            </button>
+          </div>
+          <div id="kiosk4-feedback-msg" style="margin-top:1rem; font-weight:700;"></div>
+        </div>
+      </div>
+
+      <!-- KIOSK 5 DETAIL: Kios Belanja dan Uang -->
+      <div class="kiosk-view-panel" id="kiosk-panel-5">
+        <div class="kiosk-nav-bar">
+          <div>
+            <span class="section-tag" style="background:var(--red-100); color:var(--red-600);">Kios 5 dari 5</span>
+            <h3 style="font-size:1.6rem; color:var(--navy-900);">🛒 Kios Belanja dan Uang</h3>
+            <p style="color:var(--text-secondary); margin:0;">Simulasi jual beli seru di Pasar Klewer dengan uang Rupiah</p>
+          </div>
+          <button class="btn btn-outline btn-sm btn-back-to-kiosks">← Kembali ke Peta Kios</button>
+        </div>
+
+        <!-- Wallet & Banknotes Visualizer -->
+        <div class="card" style="margin-bottom:1.5rem; background:linear-gradient(135deg, var(--navy-900), var(--navy-800)); color:#ffffff;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <div style="font-size:0.82rem; color:var(--gold-400); font-weight:700; text-transform:uppercase;">Dompet Belanja Klewer</div>
+              <h4 style="font-size:1.8rem; color:#ffffff; font-family:var(--font-mono); font-weight:800;" id="wallet-balance-display">Rp100.000</h4>
+              <p style="font-size:0.85rem; color:var(--cream-200); margin:0;">Bawalah uang Rupiah dengan bijak untuk memilih batik berkualitas!</p>
+            </div>
+            <!-- Rupiah Banknote Visuals -->
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <div style="background:#dc2626; color:#fff; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.75rem; font-weight:800; font-family:var(--font-mono); box-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                Rp100.000
+              </div>
+              <div style="background:#2563eb; color:#fff; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.75rem; font-weight:800; font-family:var(--font-mono); box-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                Rp50.000
+              </div>
+              <div style="background:#059669; color:#fff; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.75rem; font-weight:800; font-family:var(--font-mono); box-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                Rp20.000
+              </div>
+              <div style="background:#7c3aed; color:#fff; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.75rem; font-weight:800; font-family:var(--font-mono); box-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                Rp10.000
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutique Racks Selection -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:1rem;">🛍️ Pilih Barang untuk Dimasukkan ke Keranjang Belanja</h4>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:1rem;" id="kiosk5-products-grid">
+            <!-- Dynamic products selection -->
+          </div>
+        </div>
+
+        <!-- Shopping Cart & Receipt Breakdown -->
+        <div class="card" style="margin-bottom:1.5rem;">
+          <h4 style="font-size:1.15rem; color:var(--navy-900); margin-bottom:0.75rem;">🧾 Keranjang Belanja & Nota Pasar</h4>
+          <div id="kiosk5-cart-items-container" style="min-height:80px; padding:0.5rem; background:var(--cream-50); border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-bottom:1rem;">
+            <p style="color:var(--text-muted); text-align:center; margin-top:1.5rem;">Keranjang belanja masih kosong. Klik "Tambah ke Keranjang" pada barang di atas!</p>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding-top:0.75rem; border-top:1px solid var(--cream-300);">
+            <div>
+              <div style="font-size:0.85rem; color:var(--text-secondary);">Total Belanja:</div>
+              <div style="font-size:1.5rem; font-weight:800; color:var(--red-600); font-family:var(--font-mono);" id="kiosk5-cart-total">Rp0</div>
+            </div>
+            <div style="display:flex; gap:0.75rem;">
+              <button class="btn btn-outline btn-sm" id="btn-reset-cart">Kosongkan Keranjang</button>
+              <button class="btn btn-primary" id="btn-checkout-cart">
+                <span>💰</span> Bayar & Selesaikan Belanja
+              </button>
+            </div>
+          </div>
+          <div id="kiosk5-feedback-msg" style="margin-top:1rem; font-weight:700;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         3. HALAMAN GAMES PEMBELAJARAN
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-games">
+      <div class="section-header">
+        <div class="section-tag">🎮 Arena Bermain & Belajar</div>
+        <h2>Games Pembelajaran Misi Pasar Batik</h2>
+        <p>
+          Asah kecepatan dan ketepatanmu dalam membaca, memasangkan, mengurutkan, dan mengaudit nota bilangan cacah sampai 100.000!
+        </p>
+      </div>
+
+      <!-- Games Hub Menu Grid -->
+      <div class="games-hub-grid" id="games-hub-grid">
+        <!-- Game 1 Card -->
+        <div class="game-hub-card">
+          <div class="game-icon-circle">🎯</div>
+          <div class="game-score-badge" id="hub-score-game1">Skor Tertinggi: 0 Pts</div>
+          <h3>Tebak Harga Batik</h3>
+          <p>Kuis pilihan ganda interaktif: tebak cara membaca lambang harga kain batik dan tentukan nilai tempatnya!</p>
+          <button class="btn btn-primary btn-sm btn-play-game" data-game="game1" style="width:100%; margin-top:1rem;">
+            <span>▶️</span> Mainkan Sekarang
+          </button>
+        </div>
+
+        <!-- Game 2 Card -->
+        <div class="game-hub-card">
+          <div class="game-icon-circle">🃏</div>
+          <div class="game-score-badge" id="hub-score-game2">Skor Tertinggi: 0 Pts</div>
+          <h3>Pasangkan Bilangan</h3>
+          <p>Cocokkan kartu lambang angka dengan kartu cara membacanya. Melatih daya ingat dan pengenalan bilangan!</p>
+          <button class="btn btn-primary btn-sm btn-play-game" data-game="game2" style="width:100%; margin-top:1rem;">
+            <span>▶️</span> Mainkan Sekarang
+          </button>
+        </div>
+
+        <!-- Game 3 Card -->
+        <div class="game-hub-card">
+          <div class="game-icon-circle">🏎️</div>
+          <div class="game-score-badge" id="hub-score-game3">Skor Tertinggi: 0 Pts</div>
+          <h3>Balapan Urut Harga</h3>
+          <p>Susun harga batik dari yang termurah sampai termahal dengan cepat dan tepat di lintasan balap pasar!</p>
+          <button class="btn btn-primary btn-sm btn-play-game" data-game="game3" style="width:100%; margin-top:1rem;">
+            <span>▶️</span> Mainkan Sekarang
+          </button>
+        </div>
+
+        <!-- Game 4 Card -->
+        <div class="game-hub-card">
+          <div class="game-icon-circle">🔍</div>
+          <div class="game-score-badge" id="hub-score-game4">Skor Tertinggi: 0 Pts</div>
+          <h3>Detektif Nota Klewer</h3>
+          <p>Temukan kesalahan perbandingan atau pengurutan pada nota belanja pedagang batik, lalu perbaiki kesalahannya!</p>
+          <button class="btn btn-primary btn-sm btn-play-game" data-game="game4" style="width:100%; margin-top:1rem;">
+            <span>▶️</span> Mainkan Sekarang
+          </button>
+        </div>
+      </div>
+
+      <!-- ACTIVE GAME SCREEN CONTAINER -->
+      <div class="game-active-stage" id="game-active-stage">
+        <div class="game-top-bar">
+          <div>
+            <h3 id="active-game-title" style="font-size:1.35rem; color:var(--navy-900);">Judul Game</h3>
+            <span style="font-size:0.8rem; color:var(--text-muted);" id="active-game-round-info">Soal 1 dari 5</span>
+          </div>
+          <div class="game-score-display">
+            <span>⭐</span>
+            <span id="active-game-score-display">0 Poin</span>
+          </div>
+          <button class="btn btn-outline btn-sm" id="btn-exit-game">✕ Keluar Game</button>
+        </div>
+
+        <!-- Game Content Dynamic Area -->
+        <div id="active-game-body">
+          <!-- Populated by game engine -->
+        </div>
+
+        <!-- Game Completion Screen Modal/Overlay inside Stage -->
+        <div id="active-game-result" style="display:none; text-align:center; padding:2rem 1rem;">
+          <div style="font-size:3.5rem; margin-bottom:0.5rem;" id="game-result-icon">🎉</div>
+          <h3 style="font-size:1.8rem; color:var(--navy-900);" id="game-result-heading">Hebat Sekali!</h3>
+          <p style="font-size:1.05rem; color:var(--text-secondary); margin-bottom:1.5rem;" id="game-result-desc">
+            Kamu telah menyelesaikan permainan ini dengan sangat baik!
+          </p>
+          <div class="score-circle-giant" style="margin-bottom:1.5rem;">
+            <div class="score-num" id="game-result-score-num">100</div>
+            <div class="score-max">POIN DIDAPAT</div>
+          </div>
+          <div style="display:flex; justify-content:center; gap:1rem;">
+            <button class="btn btn-primary" id="btn-replay-game">
+              <span>🔄</span> Main Lagi
+            </button>
+            <button class="btn btn-secondary" id="btn-return-games-hub">
+              <span>📋</span> Menu Games
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         4. HALAMAN LKPD KELOMPOK TaRL
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-lkpd">
+      <div class="section-header">
+        <div class="section-tag">📝 Lembar Kerja Peserta Didik (LKPD)</div>
+        <h2>Misi Kelompok Pasar Batik</h2>
+        <p>
+          Penyelidikan kontekstual kelompok berbasis masalah jual beli batik di Pasar Klewer. Selesaikan misi bersama teman sekelompokmu!
+        </p>
+      </div>
+
+      <!-- LKPD Header & Group Profile Card -->
+      <div class="lkpd-header-card">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <div class="group-badge-giant Singa" id="lkpd-group-badge-display">
+              <span id="lkpd-group-icon">🦁</span> Kelompok Singa
+            </div>
+            <h3 style="font-size:1.4rem; color:#ffffff; margin-bottom:0.25rem;">Lembar Kerja Penyelidikan Kelompok</h3>
+            <p style="font-size:0.88rem; color:var(--cream-200); margin:0;" id="lkpd-group-support-desc">
+              Tantangan pemecahan masalah bilangan cacah sampai 100.000 dengan kerja sama tim.
+            </p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.8rem; color:var(--gold-400); font-weight:700;">STATUS LKPD:</div>
+            <div style="font-size:1.1rem; font-weight:800; color:#ffffff;" id="lkpd-status-text">Belum Dikerjakan</div>
+            <div style="font-size:0.75rem; color:var(--cream-300);" id="lkpd-last-saved-time"></div>
+          </div>
+        </div>
+
+        <!-- Members list -->
+        <div style="margin-top:1.25rem;">
+          <div style="font-size:0.78rem; color:var(--cream-300); font-weight:700; text-transform:uppercase;">
+            Anggota Kelompok Terdaftar:
+          </div>
+          <div class="lkpd-member-chips" id="lkpd-members-chips-container">
+            <!-- Populated dynamically based on active group -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Student Check Notice if student not chosen -->
+      <div id="lkpd-student-alert" class="card" style="display:none; background:var(--gold-100); border-color:var(--gold-400); margin-bottom:1.5rem; text-align:center;">
+        <p style="font-weight:700; color:var(--gold-600); margin:0;">
+          ⚠️ Kamu belum memilih profil murid. Silakan pilih namamu di pojok kanan atas untuk memulai Misi LKPD Kelompok!
+        </p>
+      </div>
+
+      <!-- 5 Group Missions Container (Differentiated via TaRL) -->
+      <div id="lkpd-missions-container">
+        <!-- Missions 1 through 5 rendered by JS -->
+      </div>
+
+      <!-- Group Reflection Section (4 Questions) -->
+      <div class="mission-box" id="lkpd-reflection-section" style="border-color:var(--gold-400);">
+        <div class="mission-header">
+          <div class="mission-number" style="background:var(--gold-500); color:var(--navy-900);">✨</div>
+          <div>
+            <h3 style="font-size:1.25rem; color:var(--navy-900);">Refleksi Kelompok Belajar</h3>
+            <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;">
+              Diskusikan 4 pertanyaan refleksi ini bersama seluruh anggota kelompok sebelum mengumpulkan LKPD.
+            </p>
+          </div>
+        </div>
+        <div id="lkpd-reflection-questions-container" style="display:flex; flex-direction:column; gap:1.25rem;">
+          <!-- 4 Reflection questions -->
+        </div>
+      </div>
+
+      <!-- Action Buttons for LKPD -->
+      <div style="display:flex; justify-content:flex-end; gap:1rem; flex-wrap:wrap; margin-top:2rem;">
+        <button class="btn btn-outline" id="btn-save-draft-lkpd">
+          <span>💾</span> Simpan Draf Jawaban
+        </button>
+        <button class="btn btn-primary btn-lg" id="btn-submit-lkpd">
+          <span>🚀</span> Kumpulkan LKPD Kelompok
+        </button>
+      </div>
+      <div id="lkpd-feedback-message" style="margin-top:1rem; text-align:right; font-weight:700;"></div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         5. HALAMAN EVALUASI INDIVIDU
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-evaluasi">
+      <div class="section-header">
+        <div class="section-tag">📊 Asesmen Formatif Akhir</div>
+        <h2>Evaluasi Individu Bilangan sampai 100.000</h2>
+        <p>
+          Uji pemahaman mandirimu dengan menyelesaikan 5 soal autentik sesuai Modul Ajar Matematika. Bobot masing-masing soal 20 poin (Total 100 poin, KKM: 70).
+        </p>
+      </div>
+
+      <!-- Evaluation Form Card -->
+      <div class="eval-card" id="eval-form-container">
+        <div style="background:var(--cream-100); padding:1rem 1.25rem; border-radius:var(--radius-md); border-left:4px solid var(--red-600); margin-bottom:1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">NAMA MURID:</span>
+              <strong style="font-size:1.05rem; color:var(--navy-900); margin-left:0.3rem;" id="eval-student-name-display">-</strong>
+            </div>
+            <div>
+              <span style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">BATAS KETUNTASAN (KKM):</span>
+              <strong style="font-size:1.05rem; color:var(--red-600); margin-left:0.3rem;" id="eval-kkm-display">70 Poin</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Questions -->
+        <div id="eval-questions-list">
+          <!-- Populated from data.js evaluationQuestions -->
+        </div>
+
+        <div style="margin-top:2rem; text-align:center;">
+          <button class="btn btn-primary btn-lg" id="btn-submit-evaluation">
+            <span>📤</span> Kumpulkan Jawaban Evaluasi
+          </button>
+        </div>
+      </div>
+
+      <!-- Evaluation Results & Analysis Card (Shown after submit) -->
+      <div class="eval-result-card" id="eval-results-card">
+        <div class="score-circle-giant">
+          <div class="score-num" id="eval-result-score">80</div>
+          <div class="score-max">DARI 100 POIN</div>
+        </div>
+        <h3 style="font-size:1.75rem; color:var(--navy-900); margin-bottom:0.5rem;" id="eval-verdict-title">
+          Tuntas! Selamat!
+        </h3>
+        <p style="font-size:1rem; color:var(--text-secondary); max-width:600px; margin:0 auto 1.5rem;" id="eval-verdict-desc">
+          Kamu telah berhasil menguasai materi bilangan cacah sampai 100.000 dengan sangat baik.
+        </p>
+
+        <!-- Detailed Rubric & Breakdown -->
+        <div style="text-align:left; background:var(--cream-50); border:1px solid var(--cream-300); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem;">
+          <h4 style="font-size:1.1rem; color:var(--navy-900); margin-bottom:1rem;">📋 Rincian Hasil & Pembahasan Jawaban:</h4>
+          <div id="eval-breakdown-container">
+            <!-- Dynamic items breakdown -->
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" id="btn-re-eval">
+            <span>🔄</span> Kerjakan Ulang Evaluasi
+          </button>
+          <button class="btn btn-gold" id="btn-view-profile-from-eval">
+            <span>👤</span> Lihat di Profil Murid
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         6. HALAMAN LENCANA SKOR (BADGES)
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-lencana">
+      <div class="section-header">
+        <div class="section-tag">🎖️ Galeri Prestasi & Penghargaan</div>
+        <h2>Koleksi Lencana Petualang Pasar Batik</h2>
+        <p>
+          Setiap pencapaian nyata—mulai dari menyelesaikan kios, memecahkan teka-teki, kerja sama kelompok, hingga evaluasi—akan membuka lencana berharga ini!
+        </p>
+      </div>
+
+      <!-- Badges Grid (7 Badges) -->
+      <div class="badges-grid" id="badges-grid-container">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         7. HALAMAN PROFIL DIRI MURID
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-profil">
+      <div class="section-header">
+        <div class="section-tag">👤 Profil Belajar Siswa</div>
+        <h2>Portofolio Belajar Mandiri</h2>
+        <p>Pantau rekam jejak petualangan, capaian lencana, hasil asesmen, dan refleksi dirimu.</p>
+      </div>
+
+      <div class="profile-container">
+        <!-- Sidebar Profile -->
+        <div class="profile-sidebar">
+          <div class="batik-buddy-avatar" id="profile-avatar-display" style="width:90px; height:90px; margin:0 auto 1rem; font-size:2.8rem;">
+            🦁
+          </div>
+          <h3 style="font-size:1.3rem; color:var(--navy-900);" id="profile-student-name">Nama Murid</h3>
+          <div style="margin:0.4rem 0;">
+            <span class="group-tag Singa" id="profile-group-badge">Singa</span>
+            <span class="tag-badge" id="profile-class-badge" style="margin-left:0.3rem;">Kelas V-A</span>
+          </div>
+
+          <!-- Avatar Selector -->
+          <div style="margin-top:1.5rem; text-align:left;">
+            <label style="font-size:0.8rem; font-weight:700; color:var(--text-secondary);">Ganti Karakter Avatar:</label>
+            <div class="avatar-selector-grid" id="avatar-choices-grid">
+              <div class="avatar-choice active" data-avatar="🦁">🦁</div>
+              <div class="avatar-choice" data-avatar="🐂">🐂</div>
+              <div class="avatar-choice" data-avatar="🐰">🐰</div>
+              <div class="avatar-choice" data-avatar="🎭">🎭</div>
+              <div class="avatar-choice" data-avatar="👧">👧</div>
+              <div class="avatar-choice" data-avatar="👦">👦</div>
+              <div class="avatar-choice" data-avatar="👑">👑</div>
+              <div class="avatar-choice" data-avatar="🌟">🌟</div>
+            </div>
+          </div>
+
+          <!-- Motivational Quote -->
+          <div style="background:var(--cream-100); border-radius:var(--radius-md); padding:1rem; margin-top:1.5rem; border:1px dashed var(--gold-400);">
+            <div style="font-size:1.2rem; margin-bottom:0.25rem;">✨</div>
+            <p style="font-size:0.82rem; font-style:italic; color:var(--navy-900); margin:0;">
+              "Terus belajar dan berani mencoba. Setiap langkah kecil membantumu menjadi semakin hebat!"
+            </p>
+          </div>
+
+          <button class="btn btn-outline btn-sm" id="btn-print-certificate" style="width:100%; margin-top:1.25rem;">
+            <span>📜</span> Cetak Sertifikat Petualang
+          </button>
+        </div>
+
+        <!-- Main Profile Dashboard -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <!-- Progress Cards Grid -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+            <div class="card" style="padding:1.25rem;">
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Kios Terselesaikan</div>
+              <div style="font-size:1.6rem; font-weight:800; color:var(--red-600); margin-top:0.25rem;" id="profile-kiosks-count">0 / 5</div>
+            </div>
+            <div class="card" style="padding:1.25rem;">
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Total Skor Games</div>
+              <div style="font-size:1.6rem; font-weight:800; color:var(--gold-600); margin-top:0.25rem;" id="profile-games-score">0 Pts</div>
+            </div>
+            <div class="card" style="padding:1.25rem;">
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Status LKPD Kelompok</div>
+              <div style="font-size:1.2rem; font-weight:800; color:var(--emerald-600); margin-top:0.5rem;" id="profile-lkpd-status">Belum Kumpul</div>
+            </div>
+            <div class="card" style="padding:1.25rem;">
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Nilai Evaluasi</div>
+              <div style="font-size:1.6rem; font-weight:800; color:var(--navy-900); margin-top:0.25rem;" id="profile-eval-score">-</div>
+            </div>
+          </div>
+
+          <!-- Badges Earned Strip -->
+          <div class="card">
+            <h4 style="font-size:1.1rem; color:var(--navy-900); margin-bottom:1rem;">🎖️ Lencana yang Berhasil Diperoleh</h4>
+            <div style="display:flex; flex-wrap:wrap; gap:0.75rem;" id="profile-badges-row">
+              <!-- Rendered badges icons -->
+            </div>
+          </div>
+
+          <!-- Personal Reflection Textarea -->
+          <div class="card">
+            <h4 style="font-size:1.1rem; color:var(--navy-900); margin-bottom:0.5rem;">📝 Catatan & Refleksi Pribadi Murid</h4>
+            <textarea id="profile-reflection-input" rows="3" placeholder="Tuliskan pengalaman belajarmu hari ini, hal apa yang paling kamu sukai saat bermain di Pasar Batik..." style="width:100%; padding:0.75rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); outline:none; resize:vertical;"></textarea>
+            <div style="display:flex; justify-content:flex-end; margin-top:0.75rem;">
+              <button class="btn btn-secondary btn-sm" id="btn-save-personal-reflection">Simpan Catatan</button>
+            </div>
+          </div>
+
+          <!-- Activity History Log -->
+          <div class="card">
+            <h4 style="font-size:1.1rem; color:var(--navy-900); margin-bottom:1rem;">⏱️ Riwayat Jejak Belajar Terakhir</h4>
+            <div class="activity-timeline" id="profile-activity-timeline">
+              <!-- Dynamic timeline items -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------------
+         8. HALAMAN PANEL GURU (PASSWORD 1234)
+         -------------------------------------------------------- -->
+    <section class="page-section" id="page-guru">
+      <!-- Password Lock Screen -->
+      <div class="teacher-auth-card" id="teacher-auth-screen">
+        <div style="font-size:3.5rem; margin-bottom:1rem;">🔒</div>
+        <h3 style="font-size:1.6rem; color:var(--navy-900); margin-bottom:0.5rem;">Panel Guru & Asesmen</h3>
+        <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+          Area khusus untuk guru memantau perkembangan murid, mengelola kelompok TaRL, memeriksa LKPD, dan mengekspor nilai.
+        </p>
+        <div style="margin-bottom:1rem;">
+          <input type="password" id="teacher-password-input" placeholder="Masukkan Sandi Demonstrasi (1234)" style="width:100%; padding:0.75rem 1rem; border-radius:var(--radius-md); border:2px solid var(--navy-800); text-align:center; font-size:1.1rem; letter-spacing:0.2em;" autocomplete="off">
+        </div>
+        <div id="teacher-auth-error" style="color:var(--red-600); font-size:0.85rem; font-weight:700; margin-bottom:1rem; display:none;">
+          Sandi belum tepat, silakan coba kembali. (Demonstrasi: 1234)
+        </div>
+        <button class="btn btn-primary" id="btn-teacher-login" style="width:100%;">
+          <span>🔓</span> Masuk ke Panel Guru
+        </button>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:1.25rem;">
+          💡 <em>Sandi demonstrasi seminar PPG: <strong>1234</strong></em>
+        </p>
+      </div>
+
+      <!-- Teacher Dashboard (Shown after password validation) -->
+      <div id="teacher-dashboard-screen" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+          <div>
+            <div class="section-tag" style="background:var(--gold-100); color:var(--gold-600);">
+              👨‍🏫 Dashboard Guru & Pembimbing PPG
+            </div>
+            <h2 style="font-size:2rem; color:var(--navy-900);">Panel Manajemen Pembelajaran</h2>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn btn-outline btn-sm" id="btn-export-csv">
+              <span>📥</span> Unduh Nilai (CSV)
+            </button>
+            <button class="btn btn-secondary btn-sm" id="btn-teacher-logout">
+              <span>🚪</span> Keluar Panel
+            </button>
+          </div>
+        </div>
+
+        <!-- Teacher Dashboard Tabs Navigation -->
+        <div class="teacher-tabs-nav">
+          <button class="teacher-tab-btn active" data-tab="tab-murid">
+            <span>👥</span> Kelola Murid (20)
+          </button>
+          <button class="teacher-tab-btn" data-tab="tab-kelompok">
+            <span>🦁</span> Kelola Kelompok TaRL
+          </button>
+          <button class="teacher-tab-btn" data-tab="tab-materi">
+            <span>📚</span> Kelola Materi & Kios
+          </button>
+          <button class="teacher-tab-btn" data-tab="tab-lkpd">
+            <span>📝</span> Periksa LKPD Kelompok
+          </button>
+          <button class="teacher-tab-btn" data-tab="tab-eval">
+            <span>📊</span> Asesmen & Nilai Evaluasi
+          </button>
+          <button class="teacher-tab-btn" data-tab="tab-laporan">
+            <span>📈</span> Laporan & Analisis
+          </button>
+          <button class="teacher-tab-btn" data-tab="tab-pengaturan">
+            <span>⚙️</span> Pengaturan & Reset
+          </button>
+        </div>
+
+        <!-- TAB 1: Kelola Murid -->
+        <div class="teacher-tab-content active" id="tab-murid">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+              <h3 style="font-size:1.2rem; color:var(--navy-900);">Daftar 20 Murid Kelas V-A</h3>
+              <div style="display:flex; gap:0.5rem;">
+                <input type="text" id="teacher-student-search" placeholder="Cari nama..." style="padding:0.4rem 0.8rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); font-size:0.85rem;">
+                <button class="btn btn-primary btn-sm" id="btn-open-add-student-modal">
+                  <span>➕</span> Tambah Murid
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="teacher-students-table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Nama Lengkap Murid</th>
+                    <th>Kelas</th>
+                    <th>Kelompok TaRL</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="teacher-students-tbody">
+                  <!-- Populated from storageManager.data.students -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Kelola Kelompok TaRL -->
+        <div class="teacher-tab-content" id="tab-kelompok">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h3 style="font-size:1.2rem; color:var(--navy-900); margin-bottom:0.5rem;">Pembagian Kelompok Teaching at the Right Level (TaRL)</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+              Guru dapat memindahkan murid antar kelompok berdasarkan asesmen diagnostik awal. Murid di halaman depan tidak melihat label kemampuan, hanya melihat nama kelompok Singa, Banteng, atau Kelinci.
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;" id="teacher-groups-columns">
+              <!-- 3 Columns for Singa, Banteng, Kelinci -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: Kelola Materi & Kios -->
+        <div class="teacher-tab-content" id="tab-materi">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h3 style="font-size:1.2rem; color:var(--navy-900); margin-bottom:1rem;">Pengaturan Kios Materi & Video</h3>
+            <div id="teacher-kiosks-list" style="display:flex; flex-direction:column; gap:1.25rem;">
+              <!-- Editable Kiosk titles & YouTube URL -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: Periksa LKPD Kelompok -->
+        <div class="teacher-tab-content" id="tab-lkpd">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h3 style="font-size:1.2rem; color:var(--navy-900); margin-bottom:0.5rem;">Pemeriksaan LKPD Kelompok Singa, Banteng, & Kelinci</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+              Periksa jawaban 5 misi kontekstual, jawaban uraian, dan hasil refleksi kerja sama kelompok. Berikan nilai dan catatan apresiasi.
+            </p>
+            <div id="teacher-lkpd-submissions-list" style="display:flex; flex-direction:column; gap:1.5rem;">
+              <!-- Group LKPD Submissions Viewer -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: Asesmen & Nilai Evaluasi -->
+        <div class="teacher-tab-content" id="tab-eval">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h3 style="font-size:1.2rem; color:var(--navy-900); margin-bottom:0.5rem;">Lembar Penilaian Evaluasi Individu Murid</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1.5rem;">
+              Soal 1-3 dinilai otomatis. Soal uraian 4 & 5 dapat diperiksa dan disesuaikan nilainya (0-20 poin) oleh guru.
+            </p>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Murid</th>
+                    <th>Kelompok</th>
+                    <th>Status</th>
+                    <th>Nilai PG (60)</th>
+                    <th>Nilai Uraian (40)</th>
+                    <th>Total Nilai</th>
+                    <th>Ketuntasan</th>
+                    <th>Aksi Nilai</th>
+                  </tr>
+                </thead>
+                <tbody id="teacher-eval-tbody">
+                  <!-- Dynamic eval rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: Laporan & Analisis -->
+        <div class="teacher-tab-content" id="tab-laporan">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+              <h3 style="font-size:1.2rem; color:var(--navy-900);">Rekapitulasi Capaian Pembelajaran Kelas V-A</h3>
+              <button class="btn btn-outline btn-sm" onclick="window.print()">
+                <span>🖨️</span> Cetak Rekapitulasi Laporan
+              </button>
+            </div>
+            
+            <!-- Summary Stats Counters -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; margin-bottom:1.5rem;">
+              <div style="background:var(--cream-100); padding:1rem; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">TOTAL MURID</div>
+                <div style="font-size:1.6rem; font-weight:800; color:var(--navy-900);" id="report-total-students">20</div>
+              </div>
+              <div style="background:var(--cream-100); padding:1rem; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">RATA-RATA NILAI</div>
+                <div style="font-size:1.6rem; font-weight:800; color:var(--red-600);" id="report-avg-score">0</div>
+              </div>
+              <div style="background:var(--cream-100); padding:1rem; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">KETUNTASAN (≥ 70)</div>
+                <div style="font-size:1.6rem; font-weight:800; color:var(--emerald-600);" id="report-pass-rate">0%</div>
+              </div>
+              <div style="background:var(--cream-100); padding:1rem; border-radius:var(--radius-md); text-align:center;">
+                <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">LKPD TERKUMPUL</div>
+                <div style="font-size:1.6rem; font-weight:800; color:var(--gold-600);" id="report-lkpd-rate">0 / 3</div>
+              </div>
+            </div>
+
+            <!-- Master Analytics Table -->
+            <div class="table-responsive">
+              <table class="data-table" id="master-analytics-table">
+                <thead>
+                  <tr>
+                    <th>Nama Murid</th>
+                    <th>Kelompok</th>
+                    <th>Kios</th>
+                    <th>Games</th>
+                    <th>LKPD</th>
+                    <th>Evaluasi</th>
+                    <th>Lencana</th>
+                    <th>Tindak Lanjut Rekomendasi</th>
+                  </tr>
+                </thead>
+                <tbody id="master-analytics-tbody">
+                  <!-- Populated from storage data -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 7: Pengaturan & Reset -->
+        <div class="teacher-tab-content" id="tab-pengaturan">
+          <div class="card" style="margin-bottom:1.5rem;">
+            <h3 style="font-size:1.2rem; color:var(--navy-900); margin-bottom:1rem;">Konfigurasi Sistem Pembelajaran</h3>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+              <div>
+                <label style="font-size:0.85rem; font-weight:700; color:var(--navy-900);">Judul Aplikasi Inovasi:</label>
+                <input type="text" id="setting-app-title" style="width:100%; padding:0.6rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-top:0.3rem;">
+              </div>
+              <div>
+                <label style="font-size:0.85rem; font-weight:700; color:var(--navy-900);">Satuan Pendidikan:</label>
+                <input type="text" id="setting-school" style="width:100%; padding:0.6rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-top:0.3rem;">
+              </div>
+              <div>
+                <label style="font-size:0.85rem; font-weight:700; color:var(--navy-900);">Batas Ketuntasan Minimal (KKM):</label>
+                <input type="number" id="setting-kkm" min="50" max="100" style="width:100%; padding:0.6rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-top:0.3rem;">
+              </div>
+              <div>
+                <label style="font-size:0.85rem; font-weight:700; color:var(--navy-900);">Nama Guru Penyusun:</label>
+                <input type="text" id="setting-teacher-name" style="width:100%; padding:0.6rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-top:0.3rem;">
+              </div>
+            </div>
+            <button class="btn btn-primary" id="btn-save-settings">
+              <span>💾</span> Simpan Pengaturan
+            </button>
+          </div>
+
+          <!-- Danger Zone: Reset Data -->
+          <div class="card" style="border-color:var(--red-400); background:var(--red-50);">
+            <h3 style="font-size:1.15rem; color:var(--red-600); margin-bottom:0.5rem;">Zona Bahaya: Reset Data Sistem</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:1rem;">
+              Mengembalikan semua data murid (20 murid awal), pembagian kelompok Singa/Banteng/Kelinci, skor games, jawaban LKPD, dan evaluasi ke kondisi bawaan awal seminar.
+            </p>
+            <button class="btn btn-outline" id="btn-reset-all-system" style="border-color:var(--red-600); color:var(--red-600);">
+              <span>⚠️</span> Reset ke Data Awal Bawaan
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================
+       MODALS
+       ======================================================== -->
+  <!-- 1. Pedagogical Alignment Modal (Seminar PPG) -->
+  <div class="modal-overlay" id="modal-pedagogy">
+    <div class="modal-dialog" style="max-width:760px;">
+      <div class="modal-header">
+        <h3>🏛️ Kerangka Pedagogi Media Inovasi Pembelajaran PPG</h3>
+        <button class="modal-close-btn" id="btn-close-pedagogy-modal">✕</button>
+      </div>
+      <div class="modal-body" style="font-size:0.92rem; color:var(--text-secondary); line-height:1.6;">
+        <h4 style="color:var(--navy-900); margin-bottom:0.3rem;">1. Problem Based Learning (PBL)</h4>
+        <p>Disusun dalam 5 fase: Orientasi murid pada masalah harga batik Pasar Klewer, Mengorganisasi belajar kelompok, Membimbing penyelidikan kios & games, Mengembangkan dan menyajikan hasil LKPD, serta Menganalisis dan mengevaluasi pemecahan masalah.</p>
+        
+        <h4 style="color:var(--navy-900); margin-top:1rem; margin-bottom:0.3rem;">2. Teaching at the Right Level (TaRL)</h4>
+        <p>LKPD dikelompokkan menjadi 3 tingkatan kesiapan belajar (Kelompok Kelinci, Banteng, dan Singa) tanpa memberikan label kemampuan pada antarmuka murid sehingga menjaga martabat dan motivasi setiap anak.</p>
+
+        <h4 style="color:var(--navy-900); margin-top:1rem; margin-bottom:0.3rem;">3. Culturally Responsive Teaching (CRT)</h4>
+        <p>Menghubungkan matematika dengan kekayaan budaya Nusantara: Pasar Klewer Surakarta, filosofi motif Sidomukti, Truntum, Parang, Kawung, dan Sekar Jagad, serta transaksi jual beli lokal.</p>
+
+        <h4 style="color:var(--navy-900); margin-top:1rem; margin-bottom:0.3rem;">4. Understanding by Design (UbD) & DUP</h4>
+        <p>Menyelaraskan tujuan pembelajaran dengan asesmen formatif (LKPD, games, dan evaluasi rubrik). Memberikan akses multi-modal: visual kartu angka, audio suara, interaksi seret, dan teks bacaan.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-close-pedagogy-footer">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Teacher Add Student Modal -->
+  <div class="modal-overlay" id="modal-add-student">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>➕ Tambah Data Murid Baru</h3>
+        <button class="modal-close-btn" id="btn-close-add-student">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:1rem;">
+          <label style="font-size:0.85rem; font-weight:700; color:var(--navy-900);">Nama Lengkap Murid:</label>
+          <input type="text" id="new-student-name-input" placeholder="Masukkan nama murid..." style="width:100%; padding:0.6rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-top:0.3rem;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label style="font-size:0.85rem; font-weight:700; color:var(--navy-900);">Pilih Kelompok TaRL:</label>
+          <select id="new-student-group-select" style="width:100%; padding:0.6rem; border-radius:var(--radius-md); border:1px solid var(--cream-300); margin-top:0.3rem;">
+            <option value="Singa">Kelompok Singa</option>
+            <option value="Banteng">Kelompok Banteng</option>
+            <option value="Kelinci" selected>Kelompok Kelinci</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="btn-cancel-add-student">Batal</button>
+        <button class="btn btn-primary" id="btn-confirm-add-student">Simpan Murid</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Teacher Essay Grading Modal -->
+  <div class="modal-overlay" id="modal-grade-eval">
+    <div class="modal-dialog" style="max-width:650px;">
+      <div class="modal-header">
+        <h3>✍️ Penilaian Manual Soal Uraian Evaluasi</h3>
+        <button class="modal-close-btn" id="btn-close-grade-eval">✕</button>
+      </div>
+      <div class="modal-body" id="grade-eval-body">
+        <!-- Rendered student essay answers and inputs -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="btn-cancel-grade-eval">Batal</button>
+        <button class="btn btn-primary" id="btn-save-grade-eval">Simpan Penilaian</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>🏪 Misi Pasar Batik — Petualangan Bilangan sampai 100.000</h3>
+        <p>
+          Media Inovasi Pembelajaran Digital Interaktif Berbasis Kontekstual Pasar Klewer Surakarta untuk Seminar Pendidikan Profesi Guru (PPG).
+        </p>
+      </div>
+      <div>
+        <h4 style="color:#ffffff; font-size:0.95rem; margin-bottom:0.75rem;">Identitas Modul Ajar</h4>
+        <ul style="list-style:none; font-size:0.82rem; color:var(--cream-300); display:flex; flex-direction:column; gap:0.3rem;">
+          <li>Penyusun: <strong>Nadhia Pristy</strong></li>
+          <li>NIM: <strong>A951260066</strong></li>
+          <li>Fase / Kelas: C / V SD</li>
+          <li>Materi: Bilangan Cacah s.d. 100.000</li>
+          <li>Alokasi: 2 × 35 Menit (PBL & TaRL)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#ffffff; font-size:0.95rem; margin-bottom:0.75rem;">Akses Cepat</h4>
+        <ul style="list-style:none; font-size:0.82rem; color:var(--cream-300); display:flex; flex-direction:column; gap:0.3rem;">
+          <li><a href="javascript:void(0)" onclick="appRouter.navigate('page-materi')">5 Kios Pasar Batik</a></li>
+          <li><a href="javascript:void(0)" onclick="appRouter.navigate('page-games')">4 Games Edukatif</a></li>
+          <li><a href="javascript:void(0)" onclick="appRouter.navigate('page-lkpd')">LKPD Kelompok TaRL</a></li>
+          <li><a href="javascript:void(0)" onclick="appRouter.navigate('page-guru')">Panel Guru (Sandi: 1234)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Misi Pasar Batik. Hak Cipta Dilindungi untuk Seminar PPG SD.</div>
+      <div>Surakarta, Jawa Tengah — Pasar Klewer Heritage</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
